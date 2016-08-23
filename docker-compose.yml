@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  postfix:
+    build: ./postfix/
+    container_name: postfix
+    ports:
+     - "25:25"
