@@ -6,4 +6,6 @@ RUN apk add --update --no-cache tini \
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
+EXPOSE 25 465 587
+
 CMD ["/usr/lib/postfix/master", "-d"]
