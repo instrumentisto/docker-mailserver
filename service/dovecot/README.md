@@ -9,12 +9,14 @@ Dovecot Docker image (IMAP and POP3 server)
 Minimalistic Docker image of [Dovecot IMAP and POP3 server](http://dovecot.org).
 
 
+
 ## Configuration
 
 Image is provided with default configuration of Alpine Linux
-[dovecot package](https://pkgs.alpinelinux.org/packages?name=dovecot).
+[dovecot package](https://pkgs.alpinelinux.org/packages?name=dovecot). The only
+thing is changed is making all logging to `/dev/stdout` directly.
 
-To override default configuration you must provide your own configuration files
+To override configuration you must provide your own configuration files
 and mount them into `/etc/dovecot/` directory of container.
 
 Just to override some parameters the convenient way is to add file

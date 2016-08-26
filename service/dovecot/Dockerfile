@@ -1,8 +1,12 @@
 FROM alpine:3.4
 
-RUN apk add --update --no-cache tini \
-# && apk add --update --no-cache bash \
- && apk add --update --no-cache dovecot=2.2.24-r1
+RUN apk add --update --no-cache \
+        tini \
+        dovecot=2.2.24-r1 \
+ && rm -rf /var/cache/apk/* \
+
+ && sed -i -r 's/^#log_path = syslog$/log_path = \/dev\/stdout/g' /etc/dovecot/conf.d/10-logging.conf
+
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
