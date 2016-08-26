@@ -1,5 +1,6 @@
 FROM alpine:3.4
 
+
 RUN apk add --update --no-cache \
         tini \
         dovecot=2.2.24-r1 \
@@ -8,8 +9,9 @@ RUN apk add --update --no-cache \
  && sed -i -r 's/^#log_path = syslog$/log_path = \/dev\/stdout/g' /etc/dovecot/conf.d/10-logging.conf
 
 
-ENTRYPOINT ["/sbin/tini", "--"]
-
 EXPOSE 143 993 110 995
+
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 CMD ["/usr/sbin/dovecot", "-F"]
