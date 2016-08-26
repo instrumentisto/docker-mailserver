@@ -2,7 +2,7 @@ Postfix Docker image (SMTP server)
 ==================================
 
 <img align="right" src="http://www.postfix.org/mysza.gif">
-[![docker](https://img.shields.io/badge/docker-quay.io%2Finstrumentisto%2Fpostfix-green.svg)](https://quay.io/repository/instrumentisto/postfix)
+[![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fpostfix-green.svg)](https://quay.io/repository/instrumentisto/postfix)
 [![based](https://img.shields.io/badge/based%20on-alpine%3A3.4-blue.svg)](https://hub.docker.com/_/alpine)
 [![uses](https://img.shields.io/badge/uses-s6--overlay-blue.svg)](https://github.com/just-containers/s6-overlay)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
