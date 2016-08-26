@@ -6,6 +6,7 @@ AMaViS Docker image
 [![based](https://img.shields.io/badge/based%20on-alpine%3A3.4-blue.svg)](https://hub.docker.com/_/alpine)
 [![uses](https://img.shields.io/badge/uses-s6--overlay-blue.svg)](https://github.com/just-containers/s6-overlay)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
+[![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/service/amavis)
 
 Minimalistic Docker image of [AMaViS amavisd-new interface](https://www.ijs.si/software/amavisd).
 
@@ -25,8 +26,9 @@ with desired declarations.
 ## Logs
 
 As far as `amavisd` is unable to write logs normally to `STDOUT`, `/dev/stdout/`
-or [logpipes](https://github.com/docker/docker/issues/6880#issuecomment-170214851),
-the `syslog` of this image is configured to write everything to `/dev/stdout`.  
+or [logpipes](https://github.com/docker/docker/issues/6880#issuecomment-170214851)
+(due to trying `seek()` performing), the `syslog` of this image is configured
+to write everything to `/dev/stdout`.  
 To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
 with correspondent log rules.
 
