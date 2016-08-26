@@ -1,12 +1,12 @@
-# Build AMaViS image
+# Build ClamAV image
 #
 # Usage:
 # 	make (container|push|push-latest)
 
 all: push
 
-TAG=2.10.1-r4
-NAME=quay.io/instrumentisto/amavis
+TAG=0.99.2-r1
+NAME=quay.io/instrumentisto/clamav
 
 container:
 	docker build -t $(NAME):latest ./

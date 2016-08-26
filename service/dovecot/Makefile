@@ -1,7 +1,7 @@
 # Build Dovecot image
 #
 # Usage:
-# 	make (container|push)
+# 	make (container|push|push-latest)
 
 all: push
 
