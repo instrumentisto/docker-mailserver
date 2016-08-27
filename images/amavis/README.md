@@ -17,9 +17,13 @@ Minimalistic Docker image of [AMaViS amavisd-new interface](https://www.ijs.si/s
 Image is provided with default configuration of Alpine Linux
 [amavisd-new package](https://pkgs.alpinelinux.org/packages?name=amavisd-new).
 
-To override default configuration you can either specify your own 
-`/etc/amavisd.conf` file or just add file `/etc/amavisd-custom.conf`
-with desired declarations.
+There are two ways to override default configuration:
+
+1.  Specify your own `/etc/amavis/amavisd.conf` configuration file.
+
+2.  Specify drop-in configuration files in `/etc/amavis/conf.d/` directory
+    which will override parameters of default configuration. These drop-in files
+    must have `.conf` or `.cf` extension.
 
 
 

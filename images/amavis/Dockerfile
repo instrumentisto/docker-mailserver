@@ -26,7 +26,11 @@ COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
 
- && sed -i -r 's/^(1;  # insure a defined return value)$/include_optional_config_files\("\/etc\/amavisd-custom.conf"\);\n\n\n\1/g' /etc/amavisd.conf
+ && mkdir -p /etc/amavis/conf.d/ \
+ && mv /etc/amavisd.conf /etc/amavis/amavisd.conf \
+ && ln -s /etc/amavis/amavisd.conf /etc/amavisd.conf \
+ && cat /tmp/amavisd.conf.inc >> /etc/amavis/amavisd.conf \
+ && rm -rf /tmp/amavisd.conf.inc
 
 
 EXPOSE 10024
