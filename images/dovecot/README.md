@@ -5,7 +5,7 @@ Dovecot Docker image (IMAP and POP3 server)
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fdovecot-green.svg)](https://quay.io/repository/instrumentisto/dovecot)
 [![based](https://img.shields.io/badge/based%20on-alpine%3A3.4-blue.svg)](https://hub.docker.com/_/alpine)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
-[![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/service/dovecot)
+[![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/dovecot)
 
 Minimalistic Docker image of [Dovecot IMAP and POP3 server](http://dovecot.org).
 
