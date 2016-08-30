@@ -63,3 +63,47 @@ services:
     hostname: mail
     domainname: example.com    
 ```  
+
+
+
+## Archive decoders
+
+Image is packed with almost all file decoders required by AMaViS.
+```
+amavis[174]: Internal decoder for .mail
+amavis[174]: No ext program for   .F, tried: unfreeze, freeze -d, melt, fcat
+amavis[174]: Found decoder for    .Z    at /usr/bin/uncompress
+amavis[174]: Found decoder for    .gz   at /usr/bin/gzip -d
+amavis[174]: Found decoder for    .bz2  at /usr/bin/bzip2 -d
+amavis[174]: Found decoder for    .xz   at /usr/bin/unxz -c
+amavis[174]: Found decoder for    .lzma at /usr/bin/lzma -dc
+amavis[174]: Found decoder for    .lrz  at /usr/bin/lrzip -q -k -d -o -
+amavis[174]: Found decoder for    .lzo  at /bin/lzop -d
+amavis[174]: Found decoder for    .lz4  at /usr/bin/lz4c -d
+amavis[174]: No ext program for   .rpm, tried: rpm2cpio.pl, rpm2cpio
+amavis[174]: Found decoder for    .cpio at /bin/cpio
+amavis[174]: Found decoder for    .tar  at /bin/cpio
+amavis[174]: No ext program for   .deb, tried: ar
+amavis[174]: Found decoder for    .rar  at /usr/bin/unrar
+amavis[174]: Found decoder for    .arj  at /usr/bin/unarj
+amavis[174]: Found decoder for    .arc  at /usr/bin/nomarch
+amavis[174]: Found decoder for    .zoo  at /usr/bin/zoo
+amavis[174]: Found decoder for    .doc  at /usr/bin/ripole
+amavis[174]: Found decoder for    .cab  at /usr/bin/cabextract
+amavis[174]: No ext program for   .tnef, tried: tnef
+amavis[174]: Internal decoder for .tnef
+amavis[174]: Found decoder for    .zip  at /usr/bin/7za
+amavis[174]: Found decoder for    .kmz  at /usr/bin/7za
+amavis[174]: Found decoder for    .7z   at /usr/bin/7zr
+amavis[174]: Found decoder for    .jar  at /usr/bin/7z
+amavis[174]: Found decoder for    .swf  at /usr/bin/7z
+amavis[174]: Found decoder for    .lha  at /usr/bin/7z
+amavis[174]: Found decoder for    .iso  at /usr/bin/7z
+amavis[174]: Found decoder for    .deb  at /usr/bin/7z
+amavis[174]: Found decoder for    .rpm  at /usr/bin/7z
+amavis[174]: Found decoder for    .exe  at /usr/bin/unrar; /usr/bin/unarj
+amavis[174]: No decoder for       .F
+```
+
+Decoder for `.F` files will be added 
+[as soon as possible](https://github.com/instrumentisto/docker-mailserver/issues/1).

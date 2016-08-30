@@ -19,6 +19,7 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
         amavisd-new=2.10.1-r4 \
         perl-mail-spamassassin=3.4.1-r3 \
         perl-socket6 \
+        bzip2 gzip p7zip unarj unrar lz4 cabextract \
  && rm -rf /var/cache/apk/*
 
 
