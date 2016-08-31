@@ -20,18 +20,47 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
         perl-mail-spamassassin=3.4.1-r3 \
         perl-socket6 \
         bzip2 gzip p7zip unarj unrar lz4 cabextract \
+        spamassassin=3.4.1-r3 \
+        razor=2.85-r3 \
+        # original wget required by sa-update
+        wget \
  && rm -rf /var/cache/apk/*
 
 
 COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
+ && chmod +x /etc/cont-init.d/* \
+ && chmod +x /etc/periodic/daily/* \
 
+ # Configure AMaViS
  && mkdir -p /etc/amavis/conf.d/ \
  && mv /etc/amavisd.conf /etc/amavis/amavisd.conf \
  && ln -s /etc/amavis/amavisd.conf /etc/amavisd.conf \
  && cat /tmp/amavisd.conf.inc >> /etc/amavis/amavisd.conf \
- && rm -rf /tmp/amavisd.conf.inc
+ && rm -rf /tmp/amavisd.conf.inc \
+
+ # Configure Razor
+ && razor-admin -d -dl=5 -home=/var/amavis/.razor -create \
+ && razor-admin -d -dl=5 -home=/var/amavis/.razor -register \
+ && chown -R amavis:amavis /var/amavis/.razor \
+ && sed -i -r 's/^(logfile[^=]*=).*$/\1 sys-syslog/g' \
+        /var/amavis/.razor/razor-agent.conf \
+ && sed -i -r 's/^(debuglevel[^=]*=).*$/\1 5/g' \
+        /var/amavis/.razor/razor-agent.conf \
+ && sed -i -r 's/^(logic_method[^=]*=).*$/\1 5/g' \
+        /var/amavis/.razor/razor-agent.conf \
+
+ # Configure SpamAssassin
+ && echo -e "\nuse_razor2 1" >> /etc/mail/spamassassin/local.cf \
+ && sa-update -D \
+ && mkdir -p /etc/cont-init.d/ \
+ && ln -sf /etc/periodic/daily/spamassassin-update \
+           /etc/cont-init.d/10-spamassassin-update \
+
+ # Configure Cron
+ && sed -i -r 's/^(.+(15min|hourly|weekly|monthly))$/#\1/g' \
+            /etc/crontabs/root
 
 
 EXPOSE 10024

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+razor-admin $LOG_FLAGS -home=/var/amavis/.razor -discover
+chown -R amavis:amavis /var/amavis/.razor

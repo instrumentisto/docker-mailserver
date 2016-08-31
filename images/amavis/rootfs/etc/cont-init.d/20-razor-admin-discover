@@ -1,0 +1,3 @@
+#!/bin/sh
+
+LOG_FLAGS='-d -dl=5' /etc/periodic/daily/razor-admin-discover
