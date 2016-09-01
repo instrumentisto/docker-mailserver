@@ -29,6 +29,10 @@ some additional tools (already packed into image):
   Vipul's Razor spam detection and filtering network is used by SpamAssassin
   for better spam filtering.
   
+* [Pyzor](http://pyzor.readthedocs.io/)  
+  Pyzor spam detection and blocking networked system is used by SpamAssassin
+  for better spam filtering.
+  
 Despite the fact that all tools listed above do not represent long-live
 container processes, additional job is required to be done for container to
 run a long time: updating SpamAssassin rules, Razor bases and etc.  
@@ -53,8 +57,9 @@ There are two ways to override `amavisd` default configuration:
 
 ### SpamAssassin
 Image is provided with default configuration of Alpine Linux
-[spamassassin package](https://pkgs.alpinelinux.org/packages?name=spamassassin).
-The only thing is added is `use_razor2 1` parameter.
+[spamassassin package](https://pkgs.alpinelinux.org/packages?name=spamassassin)
+which is extended with Razor and Pyzor parameters (see 
+[details](https://github.com/instrumentisto/docker-mailserver/blob/master/images/amavis/rootfs/tmp/spamassassin.local.cf.inc)).
 
 There are two ways to override SpamAssassin default configuration:
 
@@ -88,6 +93,21 @@ Example `/etc/cont-init.d/02-reconfigure-razor`:
 sed -i -r 's/^(logic_method[^=]*=).*$/\1 4/g' /var/amavis/.razor/razor-agent.conf
 ```
 
+### Pyzor
+Pyzor is configured at `/var/amavis/.pyzor` home directory with its
+[default client configuration](https://github.com/SpamExperts/pyzor/blob/release-1-0-0/config/config.sample).  
+
+To override this configuration you can either specify your own
+`/var/amavis/.pyzor/config` or overwrite its parameters on container
+startup (via `/etc/cont-init.d/` files according to
+[s6-overlay conventions](https://github.com/just-containers/s6-overlay#executing-initialization-andor-finalization-tasks))
+.  
+Example `/etc/cont-init.d/03-reconfigure-pyzor`:
+```bash
+#!/bin/sh
+sed -i -r 's/^.*(Timeout[^=]*=).*$/\1 6/g' /var/amavis/.pyzor/config
+```
+
 
 
 ## Logs
@@ -96,7 +116,8 @@ As far as `amavisd` is unable to write logs normally to `STDOUT`, `/dev/stdout/`
 or [logpipes](https://github.com/docker/docker/issues/6880#issuecomment-170214851)
 (due to trying to perform `seek()`) its configured to write logs to `syslog`.  
 For convenience, logs of `crond` and `razor-admin` also are forwarded to `syslog`.  
-Logs of `sa-update`, however, are printed directly to `STDERR`.
+Logs of `sa-update` and `pyzor`, however, are printed directly to `STDERR` and
+`STDOUT`.
 
 The `syslog` of this image is configured to write everything to `/dev/stdout`.  
 To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file

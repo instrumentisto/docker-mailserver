@@ -24,6 +24,10 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
         razor=2.85-r3 \
         # original wget required by sa-update
         wget \
+        # python is required for pyzor
+        python py-pip \
+ && pip install --no-cache-dir \
+        pyzor==1.0.0 \
  && rm -rf /var/cache/apk/*
 
 
@@ -41,8 +45,8 @@ RUN chmod +x /etc/services.d/*/run \
  && rm -rf /tmp/amavisd.conf.inc \
 
  # Configure Razor
- && razor-admin -d -dl=5 -home=/var/amavis/.razor -create \
- && razor-admin -d -dl=5 -home=/var/amavis/.razor -register \
+ && razor-admin -home=/var/amavis/.razor -create \
+ && razor-admin -home=/var/amavis/.razor -register \
  && chown -R amavis:amavis /var/amavis/.razor \
  && sed -i -r 's/^(logfile[^=]*=).*$/\1 sys-syslog/g' \
         /var/amavis/.razor/razor-agent.conf \
@@ -51,9 +55,15 @@ RUN chmod +x /etc/services.d/*/run \
  && sed -i -r 's/^(logic_method[^=]*=).*$/\1 5/g' \
         /var/amavis/.razor/razor-agent.conf \
 
+ # Configure Pyzor
+ && mkdir -p /var/amavis/.pyzor/ \
+ && mv /tmp/pyzor.config /var/amavis/.pyzor/config \
+ && chown -R amavis:amavis /var/amavis/.pyzor \
+
  # Configure SpamAssassin
- && echo -e "\nuse_razor2 1" >> /etc/mail/spamassassin/local.cf \
- && sa-update -D \
+ && cat /tmp/spamassassin.local.cf.inc >> /etc/mail/spamassassin/local.cf \
+ && rm -rf /tmp/spamassassin.local.cf.inc \
+ && sa-update -v \
  && mkdir -p /etc/cont-init.d/ \
  && ln -sf /etc/periodic/daily/spamassassin-update \
            /etc/cont-init.d/10-spamassassin-update \
