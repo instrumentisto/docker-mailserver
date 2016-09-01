@@ -9,7 +9,7 @@ default: container
 
 NAME = quay.io/instrumentisto/amavis
 ifndef VERSION
-  VERSION = 2.10.1-r4
+  VERSION = 2.10.1_c0.0
 endif
 ifndef TAGS
   TAGS = latest
