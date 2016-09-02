@@ -43,6 +43,8 @@ RUN chmod +x /etc/services.d/*/run \
  && ln -s /etc/amavis/amavisd.conf /etc/amavisd.conf \
  && cat /tmp/amavisd.conf.inc >> /etc/amavis/amavisd.conf \
  && rm -rf /tmp/amavisd.conf.inc \
+ && sed -i -r 's/^[^\$]*(\$myhostname[^=]*=).*$/\1 `hostname -d`;/g' \
+        /etc/amavis/amavisd.conf \
 
  # Configure Razor
  && razor-admin -home=/var/amavis/.razor -create \
