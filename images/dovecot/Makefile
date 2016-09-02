@@ -8,7 +8,7 @@ defaut: container
 
 NAME=quay.io/instrumentisto/dovecot
 ifndef VERSION
-  VERSION = 2.2.24-r1
+  VERSION = 2.2.24_c0.0
 endif
 ifndef TAGS
   TAGS = latest
