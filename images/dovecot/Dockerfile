@@ -17,6 +17,9 @@ RUN apk add --update --no-cache \
  && sed -i -r 's/^#log_path = syslog$/log_path = \/dev\/stdout/g' /etc/dovecot/conf.d/10-logging.conf
 
 
+COPY rootfs /
+
+
 EXPOSE 143 993 110 995
 
 
