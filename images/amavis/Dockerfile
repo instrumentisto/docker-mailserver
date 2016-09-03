@@ -34,7 +34,6 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
 COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
- && chmod +x /etc/cont-init.d/* \
  && chmod +x /etc/periodic/daily/* \
 
  # Configure AMaViS
