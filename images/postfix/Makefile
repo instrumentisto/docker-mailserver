@@ -8,7 +8,7 @@ defaut: container
 
 NAME=quay.io/instrumentisto/postfix
 ifndef VERSION
-  VERSION = 3.1.1-r0
+  VERSION = 3.1.1_c0.0
 endif
 ifndef TAGS
   TAGS = latest

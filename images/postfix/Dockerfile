@@ -11,7 +11,7 @@ ENV S6_KEEP_ENV=1 \
 
 
 RUN apk add --update --no-cache \
-        rsyslog \
+        rsyslog ca-certificates \
         postfix=3.1.1-r0 \
  && rm -rf /var/cache/apk/*
 
