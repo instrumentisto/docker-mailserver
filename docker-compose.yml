@@ -2,7 +2,82 @@ version: '2'
 
 services:
   postfix:
-    build: ./images/postfix/
-    container_name: postfix
+    container_name: mailserver-postfix
+    image: quay.io/instrumentisto/postfix
+    # build: ./images/postfix/
+    hostname: mail
+    domainname: domain.com
     ports:
-     - "25:25"
+      - "25:25"    # smtp
+      - "587:587"  # smtp-auth
+    expose:
+      - "10025"    # smtp-for-amavis
+    volumes:
+      - ./conf/accounts:/etc/mailserver:ro
+      - ./conf/postfix/main.cf:/etc/postfix/main.cf:ro
+      - ./conf/postfix/master.cf:/etc/postfix/master.cf:ro
+      - ./conf/postfix/aliases:/etc/postfix/aliases:ro
+      - ./conf/postfix/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
+      # TODO: TLS .crt & .key
+      # - ./test/mail:/tmp/test-mail:ro
+  dovecot:
+    container_name: mailserver-dovecot
+    image: quay.io/instrumentisto/dovecot
+    # build: ./images/dovecot/
+    hostname: mail
+    domainname: domain.com
+    ports:
+      - "143:143"  # imap
+      - "993:993"  # imap-secure
+      - "110:110"  # pop3
+      - "995:995"  # pop3-secure
+    expose:
+      - "24"       # lmtp
+      - "12345"    # sasl
+    volumes:
+      - maildata:/var/mail
+      - ./conf/accounts:/etc/mailserver:ro
+      - ./conf/dovecot/conf.d/10-auth.conf:/etc/dovecot/conf.d/10-auth.conf:ro
+      - ./conf/dovecot/conf.d/10-mail.conf:/etc/dovecot/conf.d/10-mail.conf:ro
+      - ./conf/dovecot/conf.d/10-master.conf:/etc/dovecot/conf.d/10-master.conf:ro
+      - ./conf/dovecot/conf.d/10-ssl.conf:/etc/dovecot/conf.d/10-ssl.conf:ro
+      - ./conf/dovecot/conf.d/15-mailboxes.conf:/etc/dovecot/conf.d/15-mailboxes.conf:ro
+      - ./conf/dovecot/conf.d/auth-passwdfile.conf.ext:/etc/dovecot/conf.d/auth-passwdfile.conf.ext:ro
+      - ./conf/dovecot/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
+      # TODO: TLS .crt & .key
+  amavis:
+    container_name: mailserver-amavis
+    image: quay.io/instrumentisto/amavis
+    # build: ./images/amavis/
+    hostname: mail
+    domainname: domain.com
+    expose:
+      - "10024"    # smtp-amavis
+    environment:
+      - SA_UPDATES_LOG_LEVEL_FLAG="-v"
+      - RAZOR_LOG_LEVEL=3
+      - PYZOR_LOG_LEVEL_FLAG=""
+    volumes:
+      - amavis-tmpbase:/var/amavis/tmp
+      - clamav-socket:/run/clamav-socket
+      - ./conf/accounts:/etc/mailserver:ro
+      - ./conf/amavis/conf.d/10-user.conf:/etc/amavis/conf.d/10-user.conf:ro
+      - ./conf/amavis/cont-init.d/01-parse-domains.sh:/etc/cont-init.d/01-parse-domains
+  clamav:
+    container_name: mailserver-clamav
+    image: quay.io/instrumentisto/clamav
+    # build: ./images/clamav/
+    expose:
+      - "3310"     # clamd
+    volumes:
+      - amavis-tmpbase:/var/amavis/tmp:ro
+      - clamav-socket:/run/clamav-socket
+      - ./conf/clamav/clamd.conf:/etc/clamav/clamd.conf:ro
+
+volumes:
+  maildata:
+    driver: local
+  amavis-tmpbase:
+    driver: local
+  clamav-socket:
+    driver: local
