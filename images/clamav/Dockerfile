@@ -15,12 +15,16 @@ RUN apk add --update --no-cache \
         clamav-libunrar=0.99.2-r1 \
  && rm -rf /var/cache/apk/*
 
+
 COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
 
  && mkdir /run/clamav \
  && chown clamav:clamav /run/clamav \
+
+ && mkfifo /var/log/clamav/clamd.log \
+ && chown clamav:clamav /var/log/clamav/clamd.log \
 
  && sed -i -r 's/^#Foreground .*$/Foreground yes/g' /etc/clamav/clamd.conf \
  && sed -i -r 's/^#LogFileMaxSize .*$/LogFileMaxSize 0/g' /etc/clamav/clamd.conf \

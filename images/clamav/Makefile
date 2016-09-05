@@ -8,7 +8,7 @@ defaut: container
 
 NAME=quay.io/instrumentisto/clamav
 ifndef VERSION
-  VERSION = 0.99.2-r1
+  VERSION = 0.99.2_c0.0
 endif
 ifndef TAGS
   TAGS = latest

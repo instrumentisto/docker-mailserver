@@ -2,8 +2,4 @@
 
 LOGFILE=/var/log/clamav/clamd.log
 
-[ -e $LOGFILE ] \
-  || mkfifo $LOGFILE \
-  && chown clamav:clamav $LOGFILE
-
 exec tail -f -n 0 $LOGFILE
