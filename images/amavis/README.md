@@ -123,8 +123,24 @@ The `syslog` of this image is configured to write everything to `/dev/stdout`.
 To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
 with correspondent log rules.
 
-To disable `sa-update` logs you need to provide your own 
-`/etc/periodic/daily/spamassassin-update` cron job with correct parameters.
+You can change logs verbosity of each component via following environment vars:
+
+* `SA_UPDATES_LOG_LEVEL_FLAG`  
+  Possible values: empty, `-v` (verbose), `-D` (debug). Default: `-D`.  
+  Controls logs verbosity of SpamAssassin updates (`sa-update` cron job).
+  See [sa-update(1)](http://linux.die.net/man/1/sa-update) for details.
+* `RAZOR_LOG_LEVEL`  
+  Possible values: `0`..`20`. Default: `5`.  
+  Controls logs verbosity of Razor agent.
+  See [razor-agent.conf(5)](http://linux.die.net/man/5/razor-agent.conf) for details.
+* `PYZOR_LOG_LEVEL_FLAG`  
+  Possible values: empty, `-d` (debug). Default: `-d`.  
+  Controls logs verbosity of Pyzor client.
+  See [pyzor(1)](http://pwet.fr/man/linux/commandes/pyzor) for details.
+* `CRON_LOG_LEVEL`  
+  Possible values: `0`..`8`. Default: `8`.  
+  Controls logs verbosity of `crond` daemon.
+  See [BusyBox crond](https://busybox.net/BusyBox.html#crond) for details.
 
 
 

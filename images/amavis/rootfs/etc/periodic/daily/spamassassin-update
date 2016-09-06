@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/usr/bin/sa-update -D
+/usr/bin/sa-update $SA_UPDATES_LOG_LEVEL_FLAG

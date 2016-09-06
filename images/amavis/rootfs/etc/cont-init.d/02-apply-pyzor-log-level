@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CONF_FILE=/etc/mail/spamassassin/local.cf
+
+sed -i -r 's@^[^p]*(pyzor_options).*$@\1 '"$PYZOR_LOG_LEVEL_FLAG"'@g' $CONF_FILE

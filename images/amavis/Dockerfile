@@ -51,8 +51,6 @@ RUN chmod +x /etc/services.d/*/run \
  && chown -R amavis:amavis /var/amavis/.razor \
  && sed -i -r 's/^(logfile[^=]*=).*$/\1 sys-syslog/g' \
         /var/amavis/.razor/razor-agent.conf \
- && sed -i -r 's/^(debuglevel[^=]*=).*$/\1 5/g' \
-        /var/amavis/.razor/razor-agent.conf \
  && sed -i -r 's/^(logic_method[^=]*=).*$/\1 5/g' \
         /var/amavis/.razor/razor-agent.conf \
 
@@ -72,6 +70,11 @@ RUN chmod +x /etc/services.d/*/run \
  # Configure Cron
  && sed -i -r 's/^(.+(15min|hourly|weekly|monthly))$/#\1/g' \
             /etc/crontabs/root
+
+ENV SA_UPDATES_LOG_LEVEL_FLAG="-D" \
+    RAZOR_LOG_LEVEL=5 \
+    PYZOR_LOG_LEVEL_FLAG="-d" \
+    CRON_LOG_LEVEL=8
 
 
 EXPOSE 10024

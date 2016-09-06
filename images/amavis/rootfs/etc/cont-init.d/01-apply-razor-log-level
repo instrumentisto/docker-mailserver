@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CONF_FILE=/var/amavis/.razor/razor-agent.conf
+
+sed -i -r 's@^(debuglevel[^=]*=).*$@\1 '"$RAZOR_LOG_LEVEL"'@g' $CONF_FILE
