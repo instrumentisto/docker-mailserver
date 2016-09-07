@@ -20,20 +20,28 @@ COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
 
+ # For accessing shared files between containers
+ && addgroup clamav nobody \
+
+ # Prepare running directory
  && mkdir /run/clamav \
  && chown clamav:clamav /run/clamav \
 
+ # Prepare logpipe
  && mkfifo /var/log/clamav/clamd.log \
  && chown clamav:clamav /var/log/clamav/clamd.log \
 
+ # Configure clamd
  && sed -i -r 's/^#Foreground .*$/Foreground yes/g' /etc/clamav/clamd.conf \
  && sed -i -r 's/^#LogFileMaxSize .*$/LogFileMaxSize 0/g' /etc/clamav/clamd.conf \
  && sed -i -r 's/^#LogRotate .*$/LogRotate no/g' /etc/clamav/clamd.conf \
 
+ # Configure freshclam
  && sed -i -r 's/^#Foreground .*$/Foreground yes/g' /etc/clamav/freshclam.conf \
- && sed -i -r 's/^(UpdateLogFile .*)$/#\1/g' /etc/clamav/freshclam.conf
+ && sed -i -r 's/^(UpdateLogFile .*)$/#\1/g' /etc/clamav/freshclam.conf \
 
-RUN freshclam --log=/dev/null
+ # Preload latest databases
+ && freshclam --log=/dev/null
 
 
 EXPOSE 3310

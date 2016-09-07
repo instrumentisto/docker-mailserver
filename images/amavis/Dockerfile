@@ -19,6 +19,7 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
         amavisd-new=2.10.1-r4 \
         perl-mail-spamassassin=3.4.1-r3 \
         perl-socket6 \
+        # perl-io-socket-inet6 \  # avaliable only in 'edge' currently
         bzip2 gzip p7zip unarj unrar lz4 cabextract \
         spamassassin=3.4.1-r3 \
         razor=2.85-r3 \
@@ -26,6 +27,7 @@ RUN chmod 444 /usr/share/perl5/vendor_perl/IO/Socket/INET6.pm \
         wget \
         # python is required for pyzor
         python py-pip \
+        # py-pyzor=1.0.0-r0 \  # avaliable only in 'edge' currently
  && pip install --no-cache-dir \
         pyzor==1.0.0 \
  && rm -rf /var/cache/apk/*
@@ -35,6 +37,9 @@ COPY rootfs /
 
 RUN chmod +x /etc/services.d/*/run \
  && chmod +x /etc/periodic/daily/* \
+
+ # For accessing shared files between containers
+ && addgroup amavis nobody \
 
  # Configure AMaViS
  && mkdir -p /etc/amavis/conf.d/ \
@@ -71,6 +76,7 @@ RUN chmod +x /etc/services.d/*/run \
  && sed -i -r 's/^(.+(15min|hourly|weekly|monthly))$/#\1/g' \
             /etc/crontabs/root
 
+# Set default logs verbosity
 ENV SA_UPDATES_LOG_LEVEL_FLAG="-D" \
     RAZOR_LOG_LEVEL=5 \
     PYZOR_LOG_LEVEL_FLAG="-d" \

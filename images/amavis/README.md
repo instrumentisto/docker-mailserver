@@ -144,6 +144,17 @@ You can change logs verbosity of each component via following environment vars:
 
 
 
+## Sharing files
+
+If you need to share files between this container and another one,
+the best way to avoid permissions mess is to make those files accessible under
+`nobody` group which is present in almost any container (so you don't need
+to create some user/group explicitly).  
+User `amavis` (which `amavisd` runs as, by default) is already added to `nobody`
+group in this image.
+
+
+
 ## Troubleshooting
 
 To avoid following error

@@ -49,3 +49,14 @@ which redirects all logs to `STDOUT`.
 
 Log file of `freshclam` daemon is disabled at all, as far as this daemon prints
 its logs directly to `STDOUT`.
+
+
+
+## Sharing files
+
+If you need to share files between this container and another one,
+the best way to avoid permissions mess is to make those files accessible under
+`nobody` group which is present in almost any container (so you don't need
+to create some user/group explicitly).  
+User `clamav` (which `clamd` runs as, by default) is already added to `nobody`
+group in this image.
