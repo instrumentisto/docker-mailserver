@@ -19,7 +19,7 @@ services:
       - ./conf/postfix/aliases:/etc/postfix/aliases:ro
       - ./conf/postfix/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
       # TODO: TLS .crt & .key
-      # - ./test/mail:/tmp/test-mail:ro
+      #- ./test/mail:/tmp/test-mail:ro
   dovecot:
     container_name: mailserver-dovecot
     image: quay.io/instrumentisto/dovecot
@@ -53,15 +53,16 @@ services:
     domainname: domain.com
     expose:
       - "10024"    # smtp-amavis
+    links:
+      - clamav:clamav.mailserver_local  # just to have dotted alias for AMaViS conf
     environment:
       - SA_UPDATES_LOG_LEVEL_FLAG="-v"
       - RAZOR_LOG_LEVEL=3
       - PYZOR_LOG_LEVEL_FLAG=""
     volumes:
       - amavis-tmpbase:/var/amavis/tmp
-      - clamav-socket:/run/clamav-socket
       - ./conf/accounts:/etc/mailserver:ro
-      - ./conf/amavis/conf.d/10-user.conf:/etc/amavis/conf.d/10-user.conf:ro
+      - ./conf/amavis/conf.d/30-user.conf:/etc/amavis/conf.d/30-user.conf:ro
       - ./conf/amavis/cont-init.d/01-parse-domains.sh:/etc/cont-init.d/01-parse-domains
   clamav:
     container_name: mailserver-clamav
@@ -71,13 +72,10 @@ services:
       - "3310"     # clamd
     volumes:
       - amavis-tmpbase:/var/amavis/tmp:ro
-      - clamav-socket:/run/clamav-socket
       - ./conf/clamav/clamd.conf:/etc/clamav/clamd.conf:ro
 
 volumes:
   maildata:
     driver: local
   amavis-tmpbase:
-    driver: local
-  clamav-socket:
     driver: local
