@@ -6,13 +6,9 @@
 defaut: container
 
 
-NAME=quay.io/instrumentisto/dovecot
-ifndef VERSION
-  VERSION = 2.2.24_c0.0
-endif
-ifndef TAGS
-  TAGS = latest
-endif
+NAME = quay.io/instrumentisto/dovecot
+VERSION ?= 2.2.24_c0.0
+TAGS ?= latest
 
 comma:= ,
 empty:=
@@ -21,6 +17,9 @@ tags := $(subst $(comma), $(space), $(TAGS))
 
 container:
 	docker build -t $(NAME):latest ./
+
+container-nocache:
+	docker build --no-cache -t $(NAME):latest ./
 
 push:
 	docker tag $(NAME):latest $(NAME):$(VERSION)

@@ -67,7 +67,6 @@ RUN chmod +x /etc/services.d/*/run \
  # Configure SpamAssassin
  && cat /tmp/spamassassin.local.cf.inc >> /etc/mail/spamassassin/local.cf \
  && rm -rf /tmp/spamassassin.local.cf.inc \
- && sa-update -v \
  && mkdir -p /etc/cont-init.d/ \
  && ln -sf /etc/periodic/daily/spamassassin-update \
            /etc/cont-init.d/10-spamassassin-update \
@@ -81,6 +80,9 @@ ENV SA_UPDATES_LOG_LEVEL_FLAG="-D" \
     RAZOR_LOG_LEVEL=5 \
     PYZOR_LOG_LEVEL_FLAG="-d" \
     CRON_LOG_LEVEL=8
+
+# Preload latest databases
+RUN sa-update -v
 
 
 EXPOSE 10024

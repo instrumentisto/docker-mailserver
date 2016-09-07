@@ -8,12 +8,8 @@
 default: container
 
 NAME = quay.io/instrumentisto/amavis
-ifndef VERSION
-  VERSION = 2.10.1_c0.0
-endif
-ifndef TAGS
-  TAGS = latest
-endif
+VERSION ?= 2.10.1_c0.0
+TAGS ?= latest
 
 comma:= ,
 empty:=
@@ -22,6 +18,9 @@ tags := $(subst $(comma), $(space), $(TAGS))
 
 container: ripole lrzip nomarch zoo
 	docker build -t $(NAME):latest ./
+
+container-nocache: ripole lrzip nomarch zoo
+	docker build --no-cache -t $(NAME):latest ./
 
 push:
 	docker tag $(NAME):latest $(NAME):$(VERSION)

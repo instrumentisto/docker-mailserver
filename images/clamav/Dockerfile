@@ -38,10 +38,10 @@ RUN chmod +x /etc/services.d/*/run \
 
  # Configure freshclam
  && sed -i -r 's/^#Foreground .*$/Foreground yes/g' /etc/clamav/freshclam.conf \
- && sed -i -r 's/^(UpdateLogFile .*)$/#\1/g' /etc/clamav/freshclam.conf \
+ && sed -i -r 's/^(UpdateLogFile .*)$/#\1/g' /etc/clamav/freshclam.conf
 
- # Preload latest databases
- && freshclam --log=/dev/null
+# Preload latest databases
+RUN freshclam --log=/dev/null
 
 
 EXPOSE 3310
