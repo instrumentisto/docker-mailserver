@@ -25,3 +25,18 @@ There are two ways to override default configuration:
 
 2.  Specify `/etc/opendkim/opendkim.custom.conf` file with desired declarations
     to overwrite existing default configuration.
+
+
+
+## Fixing files permissions
+
+If there is need to change permissions of some files (mounted private keys,
+i.e.) on container startup, the convenient way to do this will be specifying
+`/etc/fix-attrs.d/` file(s)
+[according to s6-overlay convention](https://github.com/just-containers/s6-overlay#fixing-ownership--permissions).
+
+Example `/etc/fix-attrs.d/30-opendkim-data`:
+```
+/var/opendkim      true opendkim 0644 0755
+/var/opendkim/keys true opendkim 0600 0755
+```
