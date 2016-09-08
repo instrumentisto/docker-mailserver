@@ -14,6 +14,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
       >> /etc/apk/repositories \
  && apk add --update --no-cache \
         rsyslog \
+        perl openssl \
         opendkim@testing=2.10.3-r2 \
  && rm -rf /var/cache/apk/*
 
