@@ -73,6 +73,16 @@ services:
     volumes:
       - amavis-tmpbase:/var/amavis/tmp:ro
       - ./conf/clamav/clamd.conf:/etc/clamav/clamd.conf:ro
+  opendkim:
+    container_name: mailserver-opendkim
+    image: quay.io/instrumentisto/opendkim
+    # build: ./images/opendkim/
+    expose:
+      - "12301"    # opendkim
+    volumes:
+      - ./dkim-config:/var/opendkim
+      - ./conf/opendkim/opendkim.conf:/etc/opendkim/opendkim.custom.conf:ro
+      - ./conf/opendkim/fix-attrs.d/30-opendkim-data:/etc/fix-attrs.d/30-opendkim-data:ro
 
 volumes:
   maildata:

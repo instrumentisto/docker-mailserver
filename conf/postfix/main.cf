@@ -66,7 +66,9 @@ virtual_alias_maps = hash:/etc/postfix/valiases
 content_filter = amavis:amavis:10024
     
 # Milters used by DKIM
-#milter_protocol = 2
-#milter_default_action = accept
-#smtpd_milters = inet:localhost:12301,inet:localhost:54321
-#non_smtpd_milters = inet:localhost:12301,inet:localhost:54321
+#milter_protocol = 6
+milter_default_action = accept
+#smtpd_milters = inet:opendkim:12301,inet:localhost:54321
+smtpd_milters = inet:opendkim:12301
+#non_smtpd_milters = inet:opendkim:12301,inet:localhost:54321
+non_smtpd_milters = inet:opendkim:12301
