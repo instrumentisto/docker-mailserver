@@ -14,7 +14,8 @@ Minimalistic Docker image of [OpenDKIM milter-based filter](http://www.opendkim.
 ## Configuration
 
 Image is provided with the 
-[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim/opendkim.conf).
+[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim/opendkim.conf)
+(performs only verifying).
 
 There are two ways to override default configuration:
  
