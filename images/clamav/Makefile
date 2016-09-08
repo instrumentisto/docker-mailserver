@@ -8,7 +8,7 @@ defaut: container
 
 NAME = quay.io/instrumentisto/clamav
 VERSION ?= 0.99.2_c0.0
-TAGS ?= latest
+TAGS ?= 0,0.99,0.99.2,latest
 
 comma:= ,
 empty:=

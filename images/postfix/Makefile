@@ -8,7 +8,7 @@ defaut: container
 
 NAME = quay.io/instrumentisto/postfix
 VERSION ?= 3.1.1_c0.0
-TAGS ?= latest
+TAGS ?= 3,3.1,3.1.1,latest
 
 comma:= ,
 empty:=

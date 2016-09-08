@@ -9,7 +9,7 @@ default: container
 
 NAME = quay.io/instrumentisto/amavis
 VERSION ?= 2.10.1_c0.0
-TAGS ?= latest
+TAGS ?= 2,2.10,2.10.1,latest
 
 comma:= ,
 empty:=

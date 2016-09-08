@@ -8,7 +8,7 @@ defaut: container
 
 NAME = quay.io/instrumentisto/dovecot
 VERSION ?= 2.2.24_c0.0
-TAGS ?= latest
+TAGS ?= 2,2.2,2.2.24,latest
 
 comma:= ,
 empty:=
