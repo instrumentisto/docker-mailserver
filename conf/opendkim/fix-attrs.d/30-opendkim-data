@@ -1,2 +1,2 @@
 /var/opendkim      true opendkim 0644 0755
-/etc/opendkim/keys true opendkim 0600 0755
+/var/opendkim/keys true opendkim 0600 0755
