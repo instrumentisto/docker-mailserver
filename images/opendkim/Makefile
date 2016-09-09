@@ -1,4 +1,4 @@
-# Build Postfix image
+# Build OpenDKIM image
 #
 # Usage:
 # 	make [VERSION=...] [TAGS=t1,t2,...] (container|push|push-tags)

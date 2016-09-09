@@ -7,24 +7,33 @@ OpenDKIM Docker image (milter-based filter)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/opendkim)
 
-Minimalistic Docker image of [OpenDKIM milter-based filter](http://www.opendkim.org).
+Docker image of [OpenDKIM milter-based filter](http://www.opendkim.org).
 
 
 
 ## Configuration
 
 Image is provided with the 
-[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim/opendkim.conf)
+[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim.conf)
 (performs only verifying).
 
 There are two ways to override default configuration:
  
-1.  Specify your own `/etc/opendkim/opendkim.conf` file with desired
+1.  Specify your own `/etc/opendkim.conf` file with desired
     configuration. But this requires to specify full configuration which
     can be uncomfortable if you need just tune a couple of parameters.
 
-2.  Specify `/etc/opendkim/opendkim.custom.conf` file with desired declarations
+2.  Specify `/etc/opendkim.d/custom.conf` file with desired declarations
     to overwrite existing default configuration.
+
+
+
+## Logs
+
+As far as `opendkim` daemon can only log to `syslog`,
+the `syslog` of this image is configured to write everything to `/dev/stdout`.  
+To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
+with correspondent log rules.
 
 
 
@@ -37,6 +46,6 @@ i.e.) on container startup, the convenient way to do this will be specifying
 
 Example `/etc/fix-attrs.d/30-opendkim-data`:
 ```
-/var/opendkim      true opendkim 0644 0755
-/var/opendkim/keys true opendkim 0600 0755
+/var/opendkim       true opendkim 0644 0755
+/var/opendkim/keys  true opendkim 0600 0755
 ```
