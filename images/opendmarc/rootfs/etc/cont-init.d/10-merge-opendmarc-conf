@@ -1,0 +1,13 @@
+#!/bin/sh
+
+
+OPENDMARC_DROPINS_DIR=${OPENDMARC_DROPINS_DIR:=/etc/opendmarc.d}
+OPENDMARC_CONF_FILE=${OPENDMARC_CONF_FILE:=/etc/opendmarc.conf}
+
+
+[ ! -d $OPENDMARC_DROPINS_DIR ] && exit 0
+
+for f in $OPENDMARC_DROPINS_DIR/*; do
+    echo -n "\n\n#\n# $f\n#\n" >> $OPENDMARC_CONF_FILE
+    cat $f                     >> $OPENDMARC_CONF_FILE
+done
