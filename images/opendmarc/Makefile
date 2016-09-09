@@ -7,8 +7,8 @@ defaut: container
 
 
 NAME = quay.io/instrumentisto/opendmarc
-VERSION ?= 1.3.0_c0.0
-TAGS ?= 1,1.3,1.3.0,latest
+VERSION ?= 1.3.1_c0.0
+TAGS ?= 1,1.3,1.3.1,latest
 
 comma:= ,
 empty:=

@@ -2,7 +2,7 @@ OpenDMARC Docker image (milter-based filter)
 ============================================
 
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fopendmarc-green.svg)](https://quay.io/repository/instrumentisto/opendmarc)
-[![based](https://img.shields.io/badge/based%20on-debian%3Ajessie-blue.svg)](https://hub.docker.com/_/debian)
+[![based](https://img.shields.io/badge/based%20on-debian%3Astretch-blue.svg)](https://hub.docker.com/_/debian)
 [![uses](https://img.shields.io/badge/uses-s6--overlay-blue.svg)](https://github.com/just-containers/s6-overlay)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/opendmarc)

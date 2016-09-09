@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v1.18.1.5/s6-overlay-amd64.tar.gz /tmp/
@@ -13,7 +13,7 @@ ENV S6_KEEP_ENV=1 \
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         rsyslog \
-        opendmarc=1.3.0+dfsg-1 \
+        opendmarc=1.3.1+dfsg-4 \
  && rm -rf /var/lib/apt/lists/*
 
 
