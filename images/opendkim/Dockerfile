@@ -28,7 +28,7 @@ RUN chmod +x /etc/services.d/*/run \
  && chown -R opendkim:opendkim /run/opendkim
 
 
-EXPOSE 12301
+EXPOSE 8891
 
 
 ENTRYPOINT ["/init"]

@@ -25,7 +25,7 @@ RUN chmod +x /etc/services.d/*/run \
  && chown -R opendmarc:opendmarc /run/opendmarc
 
 
-EXPOSE 54321
+EXPOSE 8893
 
 
 ENTRYPOINT ["/init"]
