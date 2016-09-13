@@ -1,5 +1,5 @@
-OpenDKIM Docker image (milter-based filter) 
-============================================
+OpenDKIM Docker image (DKIM milter) 
+===================================
 
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fopendkim-green.svg)](https://quay.io/repository/instrumentisto/opendkim)
 [![based](https://img.shields.io/badge/based%20on-alpine%3Aedge-blue.svg)](https://hub.docker.com/_/alpine)
@@ -7,7 +7,7 @@ OpenDKIM Docker image (milter-based filter)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/opendkim)
 
-Docker image of [OpenDKIM milter-based filter](http://www.opendkim.org).
+Docker image of [OpenDKIM milter](http://www.opendkim.org) (mail filter).
 
 
 

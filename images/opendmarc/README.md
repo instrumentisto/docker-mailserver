@@ -1,5 +1,5 @@
-OpenDMARC Docker image (milter-based filter) 
-============================================
+OpenDMARC Docker image (DMARC milter) 
+=====================================
 
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fopendmarc-green.svg)](https://quay.io/repository/instrumentisto/opendmarc)
 [![based](https://img.shields.io/badge/based%20on-debian%3Astretch-blue.svg)](https://hub.docker.com/_/debian)
@@ -7,8 +7,8 @@ OpenDMARC Docker image (milter-based filter)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/opendmarc)
 
-Docker image of [OpenDMARC milter-based filter](http://www.trusteddomain.org/opendmarc)
-implementation of the [DMARC specification](https://dmarc.org/).
+Docker image of [OpenDMARC milter](http://www.trusteddomain.org/opendmarc)
+(mail filter) implementation of the [DMARC specification](https://dmarc.org/).
 
 
 
