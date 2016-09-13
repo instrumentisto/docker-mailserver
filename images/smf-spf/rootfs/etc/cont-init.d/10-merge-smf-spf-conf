@@ -8,6 +8,6 @@ SMFSPF_CONF_FILE=${SMFSPF_CONF_FILE:=/etc/smf-spf.conf}
 [ ! -d $SMFSPF_DROPINS_DIR ] && exit 0
 
 for f in $SMFSPF_DROPINS_DIR/*; do
-    echo -n "\n\n#\n# $f\n#\n" >> $SMFSPF_CONF_FILE
+    echo -e "\n\n#\n# $f\n#\n" >> $SMFSPF_CONF_FILE
     cat $f                     >> $SMFSPF_CONF_FILE
 done
