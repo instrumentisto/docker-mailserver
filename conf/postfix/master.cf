@@ -44,7 +44,7 @@ retry     unix  -       -       -       -       -       error
 discard   unix  -       -       -       -       -       discard
 local     unix  -       n       n       -       -       local
 virtual   unix  -       n       n       -       -       virtual
-lmtp      unix  -       -       -       -       -       lmtp
+lmtp      unix  -       -       n       -       2       lmtp
 anvil     unix  -       -       -       -       1       anvil
 scache    unix  -       -       -       -       1       scache
 
@@ -77,10 +77,10 @@ amavis    unix  -       -       n       -       2       smtp
   -o relay_recipient_maps=
   -o smtpd_restriction_classes=
   -o smtpd_delay_reject=no
-#  -o smtpd_client_restrictions=permit_mynetworks,reject
+  -o smtpd_client_restrictions=permit_mynetworks,reject
   -o smtpd_helo_restrictions=
   -o smtpd_sender_restrictions=
-#  -o smtpd_recipient_restrictions=permit_mynetworks,reject
+  -o smtpd_recipient_restrictions=permit_mynetworks,reject
   -o smtpd_data_restrictions=reject_unauth_pipelining
   -o smtpd_end_of_data_restrictions=
   -o smtpd_error_sleep_time=0
@@ -88,5 +88,5 @@ amavis    unix  -       -       n       -       2       smtp
   -o smtpd_hard_error_limit=1000
   -o smtpd_client_connection_count_limit=0
   -o smtpd_client_connection_rate_limit=0
-  -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
+  -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_milters
   -o smtp_tls_security_level=none

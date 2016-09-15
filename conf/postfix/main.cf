@@ -7,15 +7,15 @@ smtputf8_enable = no
     
 # Basic configuration
 # myhostname =
-alias_maps = hash:/etc/postfix/aliases
-alias_database = hash:/etc/postfix/aliases
+alias_maps = texthash:/etc/postfix/aliases
+alias_database = texthash:/etc/postfix/aliases
 mydestination =
 relayhost =
-mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/64
+mynetworks = 127.0.0.0/8 [::1]/128 [fe80::]/64 172.16.0.0/12
 mailbox_size_limit = 0
 recipient_delimiter = +
 inet_interfaces = all
-inet_protocols = all
+inet_protocols = ipv4,ipv6
     
 # TLS parameters
 smtpd_tls_cert_file = /etc/ssl/postfix/server.crt
@@ -59,16 +59,17 @@ broken_sasl_auth_clients = yes
 # Mail directory
 virtual_transport = lmtp:dovecot:24
 virtual_mailbox_domains = /etc/postfix/vhosts
-virtual_mailbox_maps = hash:/etc/postfix/vmailboxes
-virtual_alias_maps = hash:/etc/postfix/valiases
+virtual_mailbox_maps = texthash:/etc/postfix/vmailboxes
+virtual_alias_maps = texthash:/etc/postfix/valiases
     
 # Additional option for filtering
 content_filter = amavis:amavis:10024
     
 # Milters used by DKIM
-#milter_protocol = 6
 milter_default_action = accept
-#smtpd_milters = inet:opendkim:12301,inet:localhost:54321
-smtpd_milters = inet:opendkim:12301
-#non_smtpd_milters = inet:opendkim:12301,inet:localhost:54321
-non_smtpd_milters = inet:opendkim:12301
+spf_milter = inet:smf-spf:8890
+dkim_milter = inet:opendkim:8891
+dmarc_milter = inet:opendmarc:8893
+smtpd_milters = $spf_milter,$dkim_milter,$dmarc_milter
+non_smtpd_milters = $dkim_milter
+

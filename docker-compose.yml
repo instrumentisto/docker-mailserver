@@ -19,7 +19,7 @@ services:
       - ./conf/postfix/aliases:/etc/postfix/aliases:ro
       - ./conf/postfix/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
       # TODO: TLS .crt & .key
-      #- ./test/mail:/tmp/test-mail:ro
+      # - ./test/mail:/tmp/test-mail:ro
   dovecot:
     container_name: mailserver-dovecot
     image: quay.io/instrumentisto/dovecot
@@ -78,11 +78,30 @@ services:
     image: quay.io/instrumentisto/opendkim
     # build: ./images/opendkim/
     expose:
-      - "12301"    # opendkim
+      - "8891"    # opendkim milter
     volumes:
       - ./dkim-config:/var/opendkim
-      - ./conf/opendkim/opendkim.conf:/etc/opendkim/opendkim.custom.conf:ro
+      - ./conf/opendkim/opendkim.conf:/etc/opendkim/conf.d/custom.conf:ro
       - ./conf/opendkim/fix-attrs.d/30-opendkim-data:/etc/fix-attrs.d/30-opendkim-data:ro
+  opendmarc:
+    container_name: mailserver-opendmarc
+    image: quay.io/instrumentisto/opendmarc
+    # build: ./images/opendmarc/
+    hostname: mail
+    domainname: domain.com
+    expose:
+      - "8893"    # opendmarc milter
+    volumes:
+      - ./conf/opendmarc/opendmarc.conf:/etc/opendmarc/conf.d/custom.conf:ro
+      - ./conf/opendmarc/ignore.hosts:/etc/opendmarc/ignore.hosts:ro
+  smf-spf:
+    container_name: mailserver-smf-spf
+    image: quay.io/instrumentisto/smf-spf
+    # build: ./images/smf-spf/
+    expose:
+      - "8890"    # smf-spf milter
+    volumes:
+      - ./conf/smf-spf/smf-spf.conf:/etc/smf-spf/smf-spf.conf:ro
 
 volumes:
   maildata:

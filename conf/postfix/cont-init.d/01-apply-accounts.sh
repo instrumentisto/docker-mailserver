@@ -31,7 +31,3 @@ if [ -f /tmp/vhosts.tmp ]; then
   rm -rf /tmp/vhosts.tmp
 fi
 touch /etc/postfix/vhosts
-
-IFS='|'; for db in `echo "vmailboxes|valiases|aliases"`; do
-  postmap -o /etc/postfix/${db}
-done
