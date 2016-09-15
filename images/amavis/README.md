@@ -37,7 +37,7 @@ Despite the fact that all tools listed above do not represent long-live
 container processes, additional job is required to be done for container to
 run a long time: updating SpamAssassin rules, Razor bases and etc.  
 That's why image is packed with required cron jobs and container runs `crond`
-and `rsyslogd` as additional processes.
+and `syslogd` as additional processes.
 
 
 
@@ -120,8 +120,8 @@ Logs of `sa-update` and `pyzor`, however, are printed directly to `STDERR` and
 `STDOUT`.
 
 The `syslog` of this image is configured to write everything to `/dev/stdout`.  
-To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
-with correspondent log rules.
+To change this behaviour just provide your own `/etc/syslog.conf` file
+with desired log rules.
 
 You can change logs verbosity of each component via following environment vars:
 

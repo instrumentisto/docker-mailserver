@@ -1,13 +1,19 @@
 #!/bin/sh
 
 
-OPENDMARC_DROPINS_DIR=${OPENDMARC_DROPINS_DIR:=/etc/opendmarc.d}
-OPENDMARC_CONF_FILE=${OPENDMARC_CONF_FILE:=/etc/opendmarc.conf}
+OPENDMARC_DROPINS_DIR=${OPENDMARC_DROPINS_DIR:=/etc/opendmarc}
+OPENDMARC_CONF_FILE=${OPENDMARC_CONF_FILE:=/etc/opendmarc.merged.conf}
 
 
-[ ! -d $OPENDMARC_DROPINS_DIR ] && exit 0
+write_cfg_file() {
+    echo -n "\n\n#\n# $1\n#\n" >> $OPENDMARC_CONF_FILE
+    cat $1                     >> $OPENDMARC_CONF_FILE
+}
 
-for f in $OPENDMARC_DROPINS_DIR/*; do
-    echo -n "\n\n#\n# $f\n#\n" >> $OPENDMARC_CONF_FILE
-    cat $f                     >> $OPENDMARC_CONF_FILE
+
+write_cfg_file $OPENDMARC_DROPINS_DIR/opendmarc.conf
+
+[ ! -d $OPENDMARC_DROPINS_DIR/conf.d ] && exit 0
+for f in `find $OPENDMARC_DROPINS_DIR/conf.d -type f | sort`; do
+    write_cfg_file $f
 done

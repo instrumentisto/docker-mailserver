@@ -13,7 +13,6 @@ ENV S6_KEEP_ENV=1 \
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
       >> /etc/apk/repositories \
  && apk add --update --no-cache \
-        rsyslog \
         libspf2 libmilter@testing \
  && rm -rf /var/cache/apk/*
 
@@ -31,4 +30,4 @@ EXPOSE 8890
 
 ENTRYPOINT ["/init"]
 
-CMD ["smf-spf", "-c", "/etc/smf-spf.conf"]
+CMD ["smf-spf", "-c", "/etc/smf-spf.merged.conf"]

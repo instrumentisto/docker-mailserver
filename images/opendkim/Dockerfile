@@ -13,7 +13,6 @@ ENV S6_KEEP_ENV=1 \
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" \
       >> /etc/apk/repositories \
  && apk add --update --no-cache \
-        rsyslog \
         opendkim@testing=2.10.3-r2 \
         # Perl and OpenSSL required for opendkim-genkey utility
         perl openssl \
@@ -33,4 +32,4 @@ EXPOSE 8891
 
 ENTRYPOINT ["/init"]
 
-CMD ["opendkim", "-f", "-x", "/etc/opendkim.conf"]
+CMD ["opendkim", "-f", "-x", "/etc/opendkim/opendkim.conf"]

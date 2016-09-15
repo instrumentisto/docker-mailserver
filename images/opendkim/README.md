@@ -14,16 +14,16 @@ Docker image of [OpenDKIM milter](http://www.opendkim.org) (mail filter).
 ## Configuration
 
 Image is provided with the 
-[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim.conf)
+[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendkim/opendkim.conf)
 (performs only verifying).
 
 There are two ways to override default configuration:
  
-1.  Specify your own `/etc/opendkim.conf` file with desired
+1.  Specify your own `/etc/opendkim/opendkim.conf` file with desired
     configuration. But this requires to specify full configuration which
     can be uncomfortable if you need just tune a couple of parameters.
 
-2.  Specify `/etc/opendkim.d/custom.conf` file with desired declarations
+2.  Specify `/etc/opendkim/conf.d/custom.conf` file with desired declarations
     to overwrite existing default configuration.
 
 
@@ -32,8 +32,8 @@ There are two ways to override default configuration:
 
 As far as `opendkim` daemon can only log to `syslog`,
 the `syslog` of this image is configured to write everything to `/dev/stdout`.  
-To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
-with correspondent log rules.
+To change this behaviour just provide your own `/etc/syslog.conf` file
+with desired log rules.
 
 
 

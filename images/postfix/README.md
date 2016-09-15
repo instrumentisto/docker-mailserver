@@ -40,5 +40,5 @@ There are two ways to override default configuration:
 
 As far as `postfix` writes its logs only to `syslog`, the `syslog` of this image
 is configured to write everything to `/dev/stdout`.  
-To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
-with correspondent log rules.
+To change this behaviour just provide your own `/etc/syslog.conf` file
+with desired log rules.

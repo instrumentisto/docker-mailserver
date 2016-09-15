@@ -30,4 +30,4 @@ EXPOSE 8893
 
 ENTRYPOINT ["/init"]
 
-CMD ["opendmarc", "-f"]
+CMD ["opendmarc", "-f", "-c", "/etc/opendmarc.merged.conf"]

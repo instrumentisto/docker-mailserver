@@ -15,18 +15,18 @@ Docker image of [OpenDMARC milter](http://www.trusteddomain.org/opendmarc)
 ## Configuration
 
 Image is provided with the 
-[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendmarc.conf).
+[following default configuration](https://github.com/instrumentisto/docker-mailserver/blob/master/images/opendkim/rootfs/etc/opendmarc/opendmarc.conf).
 
 There are two ways to override default configuration:
  
-1.  Specify your own `/etc/opendmarc.conf` file with desired
+1.  Specify your own `/etc/opendmarc/opendmarc.conf` file with desired
     configuration. But this requires to specify full configuration which
     can be uncomfortable if you need just tune a couple of parameters.
 
-2.  Specify drop-in configuration files in `/etc/opendmarc.d/` directory
+2.  Specify drop-in configuration files in `/etc/opendmarc/conf.d/` directory
     which will be automatically append to the main configuration file
     on container startup.  
-    Example `/etc/opendmarc.d/10-socket.conf`:
+    Example `/etc/opendmarc/conf.d/10-socket.conf`:
     ```
     Socket   inet:1234@127.0.0.1
     ```
@@ -38,7 +38,7 @@ There are two ways to override default configuration:
 As far as `opendmarc` daemon can only log to `syslog`,
 the `syslog` of this image is configured to write everything to `/dev/stdout`.  
 To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
-with correspondent log rules.
+with desired log rules.
 
 
 
