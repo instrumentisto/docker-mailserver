@@ -11,7 +11,7 @@ ENV S6_KEEP_ENV=1 \
 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         rsyslog \
         opendmarc=1.3.1+dfsg-4 \
  && rm -rf /var/lib/apt/lists/*
