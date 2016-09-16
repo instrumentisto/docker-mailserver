@@ -19,7 +19,7 @@ services:
       - ./conf/postfix/aliases:/etc/postfix/aliases:ro
       - ./conf/postfix/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
       # TODO: TLS .crt & .key
-      # - ./test/mail:/tmp/test-mail:ro
+      #- ./test/mail:/tmp/test-mail:ro
   dovecot:
     container_name: mailserver-dovecot
     image: quay.io/instrumentisto/dovecot
@@ -27,10 +27,11 @@ services:
     hostname: mail
     domainname: domain.com
     ports:
-      - "143:143"  # imap
-      - "993:993"  # imap-secure
-      - "110:110"  # pop3
-      - "995:995"  # pop3-secure
+      - "143:143"     # imap
+      - "993:993"     # imap-secure
+      - "110:110"     # pop3
+      - "995:995"     # pop3-secure
+      - "4190:4190"   # sieve
     expose:
       - "24"       # lmtp
       - "12345"    # sasl
@@ -42,6 +43,8 @@ services:
       - ./conf/dovecot/conf.d/10-master.conf:/etc/dovecot/conf.d/10-master.conf:ro
       - ./conf/dovecot/conf.d/10-ssl.conf:/etc/dovecot/conf.d/10-ssl.conf:ro
       - ./conf/dovecot/conf.d/15-mailboxes.conf:/etc/dovecot/conf.d/15-mailboxes.conf:ro
+      - ./conf/dovecot/conf.d/20-lmtp.conf:/etc/dovecot/conf.d/20-lmtp.conf:ro
+      - ./conf/dovecot/conf.d/20-managesieve.conf:/etc/dovecot/conf.d/20-managesieve.conf:ro
       - ./conf/dovecot/conf.d/auth-passwdfile.conf.ext:/etc/dovecot/conf.d/auth-passwdfile.conf.ext:ro
       - ./conf/dovecot/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
       # TODO: TLS .crt & .key

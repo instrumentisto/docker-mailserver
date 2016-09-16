@@ -1,15 +1,17 @@
 #!/bin/sh
 
-ACCOUNTS_CONF_DIR=/etc/mailserver
+ACCOUNTS_CONF_DIR=${ACCOUNTS_CONF_DIR:=/etc/mailserver}
 
 if [ -f $ACCOUNTS_CONF_DIR/accounts.cf ]; then
   while IFS=$'|' read login pass; do
     user=$(echo ${login} | cut -d @ -f1)
     domain=$(echo ${login} | cut -d @ -f2)
 
+    # Create Dovecot mail account
     echo "${login}:${pass}:65534:65534::/var/mail/${domain}/${user}::" \
       >> /etc/dovecot/users
 
+    # Create mail account directories, if required
     umask -S 077
     if [ ! -d /var/mail/${domain} ]; then
       mkdir -p /var/mail/${domain}
@@ -26,6 +28,15 @@ if [ -f $ACCOUNTS_CONF_DIR/accounts.cf ]; then
       touch /var/mail/${domain}/${user}/.Sent/maildirfolder
       chown -R nobody:nobody /var/mail/${domain}/${user}
     fi
+
+    # Copy mail account's Sieve filter file, if present
+    if [ -f $ACCOUNTS_CONF_DIR/sieve/${login}.sieve ]; then
+      cp -f $ACCOUNTS_CONF_DIR/sieve/${login}.sieve \
+            /var/mail/${domain}/${user}/.dovecot.sieve
+      chown -R nobody:nobody /var/mail/${domain}/${user}/.dovecot.sieve
+    fi
   done < $ACCOUNTS_CONF_DIR/accounts.cf
+else
+  echo "==> Warning: '$ACCOUNTS_CONF_DIR/accounts.cf' is not provided. No mail account created."
 fi
 touch /etc/dovecot/users
