@@ -8,7 +8,9 @@ Dovecot Docker image (IMAP and POP3 server)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/dovecot)
 
-Minimalistic Docker image of [Dovecot IMAP and POP3 server](http://dovecot.org).
+Docker image of [Dovecot IMAP and POP3 server](http://dovecot.org).  
+Contains pre-installed [Pigeonhole plugin](http://wiki2.dovecot.org/Pigeonhole/Sieve/Configuration)
+for [Sieve filters](http://sieve.info) support.
 
 
 

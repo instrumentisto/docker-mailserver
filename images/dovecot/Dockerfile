@@ -12,6 +12,7 @@ ENV S6_KEEP_ENV=1 \
 
 RUN apk add --update --no-cache \
         dovecot=2.2.24-r1 \
+        dovecot-pigeonhole-plugin=2.2.24-r1 \
  && rm -rf /var/cache/apk/*
 
 
@@ -21,7 +22,7 @@ RUN sed -i -r 's/^#log_path = syslog$/log_path = \/dev\/stdout/g' \
         /etc/dovecot/conf.d/10-logging.conf
 
 
-EXPOSE 143 993 110 995
+EXPOSE 143 993 110 995 4190
 
 
 ENTRYPOINT ["/init"]
