@@ -13,7 +13,9 @@ cd nomarch-$NOMARCH_VER
 make
 
 mkdir -p $BUILD_DIR/result/usr
-make PREFIX=$BUILD_DIR/result/usr install
+make PREFIX=$BUILD_DIR/result/usr \
+     MANDIR=$BUILD_DIR/result/usr/share/man/man1 \
+  install
 
 mkdir -p $BUILD_DIR/result/usr/share/doc/nomarch
 cp -f ./COPYING ./ChangeLog ./NEWS ./README \

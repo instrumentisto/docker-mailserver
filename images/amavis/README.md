@@ -185,10 +185,11 @@ services:
 
 ## Archive decoders
 
-Image is packed with almost all file decoders required by AMaViS.
+This image is packed with all file decoders required by AMaViS
+(with its default configuration).
 ```
 amavis[174]: Internal decoder for .mail
-amavis[174]: No ext program for   .F, tried: unfreeze, freeze -d, melt, fcat
+amavis[174]: Found decoder for    .F    at /usr/bin/unfreeze
 amavis[174]: Found decoder for    .Z    at /usr/bin/uncompress
 amavis[174]: Found decoder for    .gz   at /usr/bin/gzip -d
 amavis[174]: Found decoder for    .bz2  at /usr/bin/bzip2 -d
@@ -219,8 +220,4 @@ amavis[174]: Found decoder for    .iso  at /usr/bin/7z
 amavis[174]: Found decoder for    .deb  at /usr/bin/7z
 amavis[174]: Found decoder for    .rpm  at /usr/bin/7z
 amavis[174]: Found decoder for    .exe  at /usr/bin/unrar; /usr/bin/unarj
-amavis[174]: No decoder for       .F
 ```
-
-Decoder for `.F` files will be added 
-[as soon as possible](https://github.com/instrumentisto/docker-mailserver/issues/1).

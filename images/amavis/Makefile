@@ -16,10 +16,10 @@ empty:=
 space:= $(empty) $(empty)
 tags := $(subst $(comma), $(space), $(TAGS))
 
-container: ripole lrzip nomarch zoo
+container: ripole lrzip freeze nomarch zoo
 	docker build -t $(NAME):latest ./
 
-container-nocache: ripole lrzip nomarch zoo
+container-nocache: ripole lrzip freeze nomarch zoo
 	docker build --no-cache -t $(NAME):latest ./
 
 push:
@@ -36,14 +36,14 @@ push-tags:
 GCC_VER = latest
 RIPOLE_VER = 0.2.0
 LRZIP_VER = 0.630
-FREEZE_VER = 2.5.0
+FREEZE_VER = 2.5.0-16
 NOMARCH_VER = 1.4
 ZOO_VER = 2.10-27
 
 ripole:
 	rm -rf ./tmp/ripole
 	mkdir -p ./tmp/ripole
-	cp ./build-ripole.sh ./tmp/ripole/build-ripole.sh
+	cp ./build-ripole.sh ./tmp/ripole/
 	docker run --rm -it \
 		-v $(PWD)/tmp/ripole:/out \
 		-e RIPOLE_VER=$(RIPOLE_VER) \
@@ -54,7 +54,7 @@ ripole:
 lrzip:
 	rm -rf ./tmp/lrzip
 	mkdir -p ./tmp/lrzip
-	cp ./build-lrzip.sh ./tmp/lrzip/build-lrzip.sh
+	cp ./build-lrzip.sh ./tmp/lrzip/
 	docker run --rm -it \
 		-v $(PWD)/tmp/lrzip:/out \
 		-e LRZIP_VER=$(LRZIP_VER) \
@@ -65,7 +65,7 @@ lrzip:
 freeze:
 	rm -rf ./tmp/freeze
 	mkdir -p ./tmp/freeze
-	cp ./build-freeze.sh ./tmp/freeze/build-freeze.sh
+	cp ./build-freeze.sh ./freeze-alpine-putc.patch ./tmp/freeze/
 	docker run --rm -it \
 		-v $(PWD)/tmp/freeze:/out \
 		-e FREEZE_VER=$(FREEZE_VER) \
@@ -76,7 +76,7 @@ freeze:
 nomarch:
 	rm -rf ./tmp/nomarch
 	mkdir -p ./tmp/nomarch
-	cp ./build-nomarch.sh ./tmp/nomarch/build-nomarch.sh
+	cp ./build-nomarch.sh ./tmp/nomarch/
 	docker run --rm -it \
 		-v $(PWD)/tmp/nomarch:/out \
 		-e NOMARCH_VER=$(NOMARCH_VER) \
@@ -87,7 +87,7 @@ nomarch:
 zoo:
 	rm -rf ./tmp/zoo
 	mkdir -p ./tmp/zoo
-	cp ./build-zoo.sh ./tmp/zoo/build-zoo.sh
+	cp ./build-zoo.sh ./tmp/zoo/
 	docker run --rm -it \
 		-v $(PWD)/tmp/zoo:/out \
 		-e ZOO_VER=$(ZOO_VER) \
