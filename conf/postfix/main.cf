@@ -60,7 +60,7 @@ broken_sasl_auth_clients = yes
 virtual_transport = lmtp:dovecot:24
 virtual_mailbox_domains = /etc/postfix/vhosts
 virtual_mailbox_maps = texthash:/etc/postfix/vmailboxes
-virtual_alias_maps = texthash:/etc/postfix/valiases
+virtual_alias_maps = texthash:/etc/postfix/valiases,regexp:/etc/postfix/valiases-regexp
     
 # Additional option for filtering
 content_filter = amavis:amavis:10024

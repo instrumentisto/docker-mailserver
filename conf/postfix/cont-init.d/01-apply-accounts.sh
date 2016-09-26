@@ -26,6 +26,12 @@ if [ -f $ACCOUNTS_CONF_DIR/aliases.cf ]; then
 fi
 touch /etc/postfix/valiases
 
+if [ -f $ACCOUNTS_CONF_DIR/aliases-regexp.cf ]; then
+  cp -f $ACCOUNTS_CONF_DIR/aliases-regexp.cf /etc/postfix/valiases-regexp
+  ## TODO: think about parsing domains
+fi
+touch /etc/postfix/valiases-regexp
+
 if [ -f /tmp/vhosts.tmp ]; then
   cat /tmp/vhosts.tmp | sort | uniq > /etc/postfix/vhosts
   rm -rf /tmp/vhosts.tmp
