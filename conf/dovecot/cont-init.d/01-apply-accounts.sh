@@ -18,14 +18,7 @@ if [ -f $ACCOUNTS_CONF_DIR/accounts.cf ]; then
       chown -R nobody:nobody /var/mail/${domain}
     fi
     if [ ! -d /var/mail/${domain}/${user} ]; then
-      IFS='|'; for dir in `echo "|.Sent|.Trash|.Drafts"`; do
-        IFS='|'; for subdir in `echo "cur|new|tmp"`; do
-          mkdir -p /var/mail/${domain}/${user}/${dir}/${subdir}
-        done
-      done
-      echo -e "INBOX\nSent\nTrash\nDrafts" \
-        >> /var/mail/${domain}/${user}/subscriptions
-      touch /var/mail/${domain}/${user}/.Sent/maildirfolder
+      mkdir -p /var/mail/${domain}/${user}
       chown -R nobody:nobody /var/mail/${domain}/${user}
     fi
 
