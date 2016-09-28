@@ -8,8 +8,8 @@ defaut: container
 
 
 NAME = quay.io/instrumentisto/smf-spf
-VERSION ?= 2.0.2_c0.0
-TAGS ?= 2,2.0,2.0.2,latest
+VERSION ?= 2.1.1_c0.0
+TAGS ?= 2,2.1,2.1.1,latest
 
 comma:= ,
 empty:=
@@ -34,7 +34,7 @@ push-tags:
 
 
 GCC_VER ?= latest
-SMFSPF_VER ?= 2.0.2b-1
+SMFSPF_VER ?= 2.1.1
 
 smf-spf:
 	rm -rf ./tmp/smf-spf

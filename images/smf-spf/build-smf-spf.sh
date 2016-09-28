@@ -11,8 +11,8 @@ apk add --update \
 
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
-wget https://github.com/instrumentisto/smf-spf/archive/$SMFSPF_VER.tar.gz
-tar -xzf $SMFSPF_VER.tar.gz
+wget https://github.com/jcbf/smf-spf/archive/v$SMFSPF_VER.tar.gz
+tar -xzf v$SMFSPF_VER.tar.gz
 
 cd smf-spf-$SMFSPF_VER
 make
