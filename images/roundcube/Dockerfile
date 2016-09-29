@@ -12,8 +12,23 @@ ENV S6_KEEP_ENV=1 \
 
 RUN apk add --update --no-cache \
         ca-certificates \
+        libpq \
+        aspell-libs \
+ && apk add --no-cache --virtual .tools-deps \
+        autoconf g++ libtool make \
+ && apk add --no-cache --virtual .build-deps \
+        zlib-dev \
+        postgresql-dev \
+        aspell-dev \
  && docker-php-ext-install \
            opcache \
+           pdo_pgsql pdo_mysql \
+           pspell \
+ && pecl install \
+         zip \
+ && docker-php-ext-enable \
+           zip \
+ && apk del .tools-deps .build-deps \
  && rm -rf /var/cache/apk/*
 
 
