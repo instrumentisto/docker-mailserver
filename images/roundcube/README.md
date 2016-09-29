@@ -4,6 +4,7 @@ Roundcube webmail Docker image
 <img align="right" src="https://roundcube.net/images/logo.png">
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Froundcube-green.svg)](https://quay.io/repository/instrumentisto/roundcube)
 [![based](https://img.shields.io/badge/based%20on-php%3A7.0.11--fpm--alpine-blue.svg)](https://hub.docker.com/_/php)
+[![uses](https://img.shields.io/badge/uses-s6--overlay-blue.svg)](https://github.com/just-containers/s6-overlay)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/roundcube)
 
@@ -77,3 +78,14 @@ following value:
 ```php
 $config['db_dsnw'] = 'sqlite:////var/db/roundcube.db?mode=0640';
 ```
+
+
+
+## Logs
+
+As far as Roundcube cannot log to `STDOUT` directly (without messy hacks),
+its configured to use `syslog` driver by default.
+
+The `syslog` of this image is configured to write everything to `/dev/stdout`.  
+To change this behaviour just provide your own `/etc/syslog.conf` file
+with desired log rules.
