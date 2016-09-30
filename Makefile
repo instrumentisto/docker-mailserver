@@ -18,4 +18,16 @@ dkim-config:
 		sh /tool/generate-dkim-config.sh
 
 
-.PHONY: dkim-config
+SSL_FQDN ?= mail.domain.com
+
+ssl-cert:
+	docker run --rm -it \
+		-v "$(PWD)/conf/accounts":/etc/mailserver:ro \
+		-v "$(PWD)/tools":/tool \
+		-v "$(PWD)/ssl":/out \
+		-e FQDN=$(SSL_FQDN) \
+		centurylink/openssl \
+		sh /tool/generate-ssl-cert.sh
+
+
+.PHONY: dkim-config ssl-certs
