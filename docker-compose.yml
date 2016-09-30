@@ -84,9 +84,9 @@ services:
     expose:
       - "8891"    # opendkim milter
     volumes:
-      - ./dkim-config:/var/opendkim
+      - ./dkim-config:/etc/dkim-config:ro
       - ./conf/opendkim/opendkim.conf:/etc/opendkim/conf.d/custom.conf:ro
-      - ./conf/opendkim/fix-attrs.d/30-opendkim-data:/etc/fix-attrs.d/30-opendkim-data:ro
+      - ./conf/opendkim/cont-init.d/30-opendkim-data.sh:/etc/cont-init.d/30-opendkim-data.sh
   opendmarc:
     container_name: mailserver-opendmarc
     image: quay.io/instrumentisto/opendmarc
