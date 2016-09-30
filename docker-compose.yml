@@ -7,6 +7,12 @@ services:
     # build: ./images/postfix/
     hostname: mail
     domainname: domain.com
+    depends_on:
+      - dovecot
+      - amavis
+      - opendkim
+      - opendmarc
+      - smf-spf
     ports:
       - "25:25"    # smtp
       - "587:587"  # smtp-auth
@@ -18,7 +24,9 @@ services:
       - ./conf/postfix/master.cf:/etc/postfix/master.cf:ro
       - ./conf/postfix/aliases:/etc/postfix/aliases:ro
       - ./conf/postfix/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
-      # TODO: TLS .crt & .key
+      - ./ssl/mail.domain.com.crt:/etc/ssl/postfix/server.crt:ro
+      - ./ssl/mail.domain.com.key:/etc/ssl/postfix/server.key:ro
+      - ./ssl/ca.crt:/etc/ssl/postfix/ca.crt:ro
       #- ./test/mail:/tmp/test-mail:ro
   dovecot:
     container_name: mailserver-dovecot
@@ -47,13 +55,16 @@ services:
       - ./conf/dovecot/conf.d/20-managesieve.conf:/etc/dovecot/conf.d/20-managesieve.conf:ro
       - ./conf/dovecot/conf.d/auth-passwdfile.conf.ext:/etc/dovecot/conf.d/auth-passwdfile.conf.ext:ro
       - ./conf/dovecot/cont-init.d/01-apply-accounts.sh:/etc/cont-init.d/01-apply-accounts
-      # TODO: TLS .crt & .key
+      - ./ssl/mail.domain.com.crt:/etc/ssl/dovecot/server.crt:ro
+      - ./ssl/mail.domain.com.key:/etc/ssl/dovecot/server.key:ro
   amavis:
     container_name: mailserver-amavis
     image: quay.io/instrumentisto/amavis
     # build: ./images/amavis/
     hostname: mail
     domainname: domain.com
+    depends_on:
+      - clamav
     expose:
       - "10024"    # smtp-amavis
     links:
