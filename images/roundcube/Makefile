@@ -8,8 +8,8 @@ defaut: container
 
 
 NAME = quay.io/instrumentisto/roundcube
-VERSION ?= 1.2.1_c0.0
-TAGS ?= 1,1.2,1.2.1,latest
+VERSION ?= 1.2.2_c0.0
+TAGS ?= 1,1.2,1.2.2,latest
 
 comma:= ,
 empty:=
@@ -34,7 +34,7 @@ push-tags:
 
 
 PHPBUILDER_VER ?= 7.0.11
-ROUNDCUBE_VER ?= 1.2.1
+ROUNDCUBE_VER ?= 1.2.2
 
 roundcube:
 	rm -rf ./tmp/roundcube
