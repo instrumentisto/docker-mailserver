@@ -1,7 +1,8 @@
 # Build configuration
 #
 # Usage:
-# 	make dkim-config
+# 	make [DKIM_SELECTOR=] [DKIM_DATA_DIR=] dkim-config
+# 	make [SSL_FQDN=] ssl-cert
 
 
 DKIM_SELECTOR ?= mail
