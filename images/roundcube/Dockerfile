@@ -1,4 +1,4 @@
-FROM php:7.0.11-fpm-alpine
+FROM php:7.0.12-fpm-alpine
 
 
 ADD https://github.com/just-containers/s6-overlay/releases/download/v1.18.1.5/s6-overlay-amd64.tar.gz /tmp/

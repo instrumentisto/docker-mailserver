@@ -1,26 +1,31 @@
 # Build Roundcube image
 #
 # Usage:
-# 	make [VERSION=] [TAGS=t1,t2,...] (container|push|push-tags)
-# 	make [PHPBUILDER_VER=] [ROUNDCUBE_VER=] roundcube
+# 	make (container|push|push-tags) [VERSION=...] [TAGS=t1,t2,...] [no-cache=(yes|no)]
+# 	make all [VERSION=...] [TAGS=tag1,tag2,...] [no-cache=(yes|no)]
+# 	make roundcube [ROUNDCUBE_VER=] [PHPBUILDER_VER=]
 
 defaut: container
 
 
-NAME = quay.io/instrumentisto/roundcube
-VERSION ?= 1.2.2_c0.0
+NAME := quay.io/instrumentisto/roundcube
+VERSION ?= 1.2.2_c1.0
 TAGS ?= 1,1.2,1.2.2,latest
+no-cache ?= no
 
 comma:= ,
 empty:=
 space:= $(empty) $(empty)
-tags := $(subst $(comma), $(space), $(TAGS))
+eq = $(if $(or $(1),$(2)),$(and $(findstring $(1),$(2)),\
+                                $(findstring $(2),$(1))),1)
+
+tags = $(subst $(comma), $(space), $(TAGS))
+
+no-cache-arg = $(if $(call eq, $(no-cache), yes), --no-cache, $(empty))
+
 
 container: roundcube
-	docker build -t $(NAME):latest ./
-
-container-nocache: clean roundcube
-	docker build --no-cache -t $(NAME):latest ./
+	docker build $(no-cache-arg) -t $(NAME):latest ./
 
 push:
 	docker tag $(NAME):latest $(NAME):$(VERSION)
@@ -33,7 +38,13 @@ push-tags:
 	)
 
 
-PHPBUILDER_VER ?= 7.0.11
+all: | clean container push push-tags
+
+
+.PHONY: container push push-tags all
+
+
+PHPBUILDER_VER ?= 7.0.12
 ROUNDCUBE_VER ?= 1.2.2
 
 roundcube:
@@ -50,3 +61,6 @@ roundcube:
 
 clean:
 	rm -rf ./tmp ./rootfs/var/www
+
+
+.PHONY: clean roundcube
