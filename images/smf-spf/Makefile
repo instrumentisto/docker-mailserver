@@ -1,26 +1,31 @@
 # Build smf-spf image
 #
 # Usage:
-# 	make [VERSION=] [TAGS=t1,t2,...] (container|push|push-tags)
-# 	make [GCC_VER=] [SMFSPF_VER=] smf-spf
+# 	make (container|push|push-tags) [VERSION=...] [TAGS=t1,t2,...] [no-cache=(yes|no)]
+# 	make all [VERSION=...] [TAGS=tag1,tag2,...] [no-cache=(yes|no)]
+# 	make smf-spf [GCC_VER=] [SMFSPF_VER=]
 
 defaut: container
 
 
-NAME = quay.io/instrumentisto/smf-spf
-VERSION ?= 2.1.1_c0.0
+NAME := quay.io/instrumentisto/smf-spf
+VERSION ?= 2.1.1_c0.1
 TAGS ?= 2,2.1,2.1.1,latest
+no-cache ?= no
 
 comma:= ,
 empty:=
 space:= $(empty) $(empty)
-tags := $(subst $(comma), $(space), $(TAGS))
+eq = $(if $(or $(1),$(2)),$(and $(findstring $(1),$(2)),\
+                                $(findstring $(2),$(1))),1)
+
+tags = $(subst $(comma), $(space), $(TAGS))
+
+no-cache-arg = $(if $(call eq, $(no-cache), yes), --no-cache, $(empty))
+
 
 container: smf-spf
-	docker build -t $(NAME):latest ./
-
-container-nocache: clean smf-spf
-	docker build --no-cache -t $(NAME):latest ./
+	docker build $(no-cache-arg) -t $(NAME):latest ./
 
 push:
 	docker tag $(NAME):latest $(NAME):$(VERSION)
@@ -31,6 +36,12 @@ push-tags:
 		docker tag $(NAME):$(VERSION) $(NAME):$(tag); \
 		docker push $(NAME):$(tag); \
 	)
+
+
+all: | clean container push push-tags
+
+
+.PHONY: container push push-tags all
 
 
 GCC_VER ?= latest
@@ -50,3 +61,6 @@ smf-spf:
 
 clean:
 	rm -rf ./tmp ./rootfs/usr
+
+
+.PHONY: clean smf-spf
