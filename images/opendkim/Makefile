@@ -7,7 +7,7 @@ defaut: container
 
 
 NAME = quay.io/instrumentisto/opendkim
-VERSION ?= 2.10.3_c0.0
+VERSION ?= 2.10.3_c1.0
 TAGS ?= 2,2.10,2.10.3,latest
 
 comma:= ,

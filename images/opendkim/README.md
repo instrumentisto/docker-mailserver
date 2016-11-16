@@ -2,7 +2,7 @@ OpenDKIM Docker image (DKIM milter)
 ===================================
 
 [![docker](https://img.shields.io/badge/image-quay.io%2Finstrumentisto%2Fopendkim-green.svg)](https://quay.io/repository/instrumentisto/opendkim)
-[![based](https://img.shields.io/badge/based%20on-debian%3Astretch-blue.svg)](https://hub.docker.com/_/debian)
+[![based](https://img.shields.io/badge/based%20on-alpine%3Aedge-blue.svg)](https://hub.docker.com/_/alpine)
 [![uses](https://img.shields.io/badge/uses-s6--overlay-blue.svg)](https://github.com/just-containers/s6-overlay)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/instrumentisto/docker-mailserver/blob/master/LICENSE.md)
 [![github](https://img.shields.io/badge/GitHub-repo-blue.svg)](https://github.com/instrumentisto/docker-mailserver/tree/master/images/opendkim)
@@ -32,7 +32,7 @@ There are two ways to override default configuration:
 
 As far as `opendkim` daemon can only log to `syslog`,
 the `syslog` of this image is configured to write everything to `/dev/stdout`.  
-To change this behaviour just provide your own `/etc/rsyslog.d/30-log.conf` file
+To change this behaviour just provide your own `/etc/syslog.conf` file
 with desired log rules.
 
 
